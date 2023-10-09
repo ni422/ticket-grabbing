@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhu.ticketgrabbing.dao.TrainStationDao">
+
+    <resultMap id="BaseResultMap" type="com.zhu.ticketgrabbing.entity.TrainStation">
+        <!--@Table train_station-->
+        <result property="stationId" column="station_id" jdbcType="INTEGER"/>
+        <result property="stationTitle" column="station_title" jdbcType="VARCHAR"/>
+        <result property="stationCode" column="station_code" jdbcType="VARCHAR"/>
+        <result property="stationCompleteSpelling" column="station_complete_spelling" jdbcType="VARCHAR"/>
+        <result property="stationSimplaSpelling" column="station_simpla_spelling" jdbcType="VARCHAR"/>
+        <result property="stationCityCode" column="station_city_code" jdbcType="VARCHAR"/>
+        <result property="stationCity" column="station_city" jdbcType="VARCHAR"/>
+        <result property="stationSort" column="station_sort" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select station_id,
+               station_title,
+               station_code,
+               station_complete_spelling,
+               station_simpla_spelling,
+               station_city_code,
+               station_city,
+               station_sort
+        from train_station
+        where station_id = #{stationId}
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select station_id,
+               station_title,
+               station_code,
+               station_complete_spelling,
+               station_simpla_spelling,
+               station_city_code,
+               station_city,
+               station_sort
+        from ticket.train_station
+    </select>
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from train_station
+        <where>
+            <if test="stationId != null">
+                and station_id = #{stationId}
+            </if>
+            <if test="stationTitle != null and stationTitle != ''">
+                and station_title = #{stationTitle}
+            </if>
+            <if test="stationCode != null and stationCode != ''">
+                and station_code = #{stationCode}
+            </if>
+            <if test="stationCompleteSpelling != null and stationCompleteSpelling != ''">
+                and station_complete_spelling = #{stationCompleteSpelling}
+            </if>
+            <if test="stationSimplaSpelling != null and stationSimplaSpelling != ''">
+                and station_simpla_spelling = #{stationSimplaSpelling}
+            </if>
+            <if test="stationCityCode != null and stationCityCode != ''">
+                and station_city_code = #{stationCityCode}
+            </if>
+            <if test="stationCity != null and stationCity != ''">
+                and station_city = #{stationCity}
+            </if>
+            <if test="stationSort != null">
+                and station_sort = #{stationSort}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="getTitleByCode" resultType="com.zhu.ticketgrabbing.entity.TrainStation">
+        select station_title,station_code
+        from train_station ts
+        where station_code in ('-1'
+        <foreach collection="list" index="index" open="," item="code" separator=",">
+            #{code}
+        </foreach>
+        )
+    </select>
+    <select id="getCodeTitleList" resultType="com.zhu.ticketgrabbing.entity.TrainStation">
+        select station_title, station_code, station_sort
+        from train_station ts
+        order by station_sort
+    </select>
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="stationId" useGeneratedKeys="true">
+        insert into train_station(station_title, station_code, station_complete_spelling, station_simpla_spelling,
+                                  station_city_code, station_city, station_sort)
+        values (#{stationTitle}, #{stationCode}, #{stationCompleteSpelling}, #{stationSimplaSpelling},
+                #{stationCityCode}, #{stationCity}, #{stationSort})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="stationId" useGeneratedKeys="true">
+        insert into train_station(station_title, station_code, station_complete_spelling, station_simpla_spelling,
+        station_city_code, station_city, station_sort)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.stationTitle}, #{entity.stationCode}, #{entity.stationCompleteSpelling},
+            #{entity.stationSimplaSpelling}, #{entity.stationCityCode}, #{entity.stationCity}, #{entity.stationSort})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="stationId" useGeneratedKeys="true">
+        insert into train_station(station_title, station_code, station_complete_spelling, station_simpla_spelling,
+        station_city_code, station_city, station_sort)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.stationTitle}, #{entity.stationCode}, #{entity.stationCompleteSpelling},
+            #{entity.stationSimplaSpelling}, #{entity.stationCityCode}, #{entity.stationCity}, #{entity.stationSort})
+        </foreach>
+        on duplicate key update
+        station_title = values(station_title),
+        station_code = values(station_code),
+        station_complete_spelling = values(station_complete_spelling),
+        station_simpla_spelling = values(station_simpla_spelling),
+        station_city_code = values(station_city_code),
+        station_city = values(station_city),
+        station_sort = values(station_sort)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update train_station
+        <set>
+            <if test="stationTitle != null and stationTitle != ''">
+                station_title = #{stationTitle},
+            </if>
+            <if test="stationCode != null and stationCode != ''">
+                station_code = #{stationCode},
+            </if>
+            <if test="stationCompleteSpelling != null and stationCompleteSpelling != ''">
+                station_complete_spelling = #{stationCompleteSpelling},
+            </if>
+            <if test="stationSimplaSpelling != null and stationSimplaSpelling != ''">
+                station_simpla_spelling = #{stationSimplaSpelling},
+            </if>
+            <if test="stationCityCode != null and stationCityCode != ''">
+                station_city_code = #{stationCityCode},
+            </if>
+            <if test="stationCity != null and stationCity != ''">
+                station_city = #{stationCity},
+            </if>
+            <if test="stationSort != null">
+                station_sort = #{stationSort},
+            </if>
+        </set>
+        where station_id = #{stationId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from train_station
+        where station_id = #{stationId}
+    </delete>
+
+</mapper>
+

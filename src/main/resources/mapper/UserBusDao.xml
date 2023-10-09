@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhu.ticketgrabbing.dao.UserBusDao">
+
+    <resultMap id="BaseResultMap" type="com.zhu.ticketgrabbing.entity.UserBus">
+        <!--@Table user_bus-->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="nameZh" column="name_zh" jdbcType="VARCHAR"/>
+        <result property="codeNo" column="code_no" jdbcType="VARCHAR"/>
+        <result property="pwd" column="pwd" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="phoneNo" column="phone_no" jdbcType="VARCHAR"/>
+        <result property="fromData" column="from_data" jdbcType="VARCHAR"/>
+        <result property="toData" column="to_data" jdbcType="VARCHAR"/>
+        <result property="startDate" column="start_date" jdbcType="TIMESTAMP"/>
+        <result property="firstDate" column="first_date" jdbcType="VARCHAR"/>
+        <result property="otherDate" column="other_date" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="doNum" column="do_num" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select id,
+               name_zh,
+               code_no,
+               pwd,
+               email,
+               phone_no,
+               from_data,
+               to_data,
+               start_date,
+               first_date,
+               other_date,
+               status,
+               do_num
+        from user_bus
+        where id = #{id}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from user_bus
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="nameZh != null and nameZh != ''">
+                and name_zh = #{nameZh}
+            </if>
+            <if test="codeNo != null and codeNo != ''">
+                and code_no = #{codeNo}
+            </if>
+            <if test="pwd != null and pwd != ''">
+                and pwd = #{pwd}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="phoneNo != null and phoneNo != ''">
+                and phone_no = #{phoneNo}
+            </if>
+            <if test="fromData != null and fromData != ''">
+                and from_data = #{fromData}
+            </if>
+            <if test="toData != null and toData != ''">
+                and to_data = #{toData}
+            </if>
+            <if test="startDate != null">
+                and start_date = #{startDate}
+            </if>
+            <if test="firstDate != null and firstDate != ''">
+                and first_date = #{firstDate}
+            </if>
+            <if test="otherDate != null and otherDate != ''">
+                and other_date = #{otherDate}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="doNum != null">
+                and do_num = #{doNum}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into user_bus(name_zh, code_no, pwd, email, phone_no, from_data, to_data, start_date, first_date,
+                             other_date, status, do_num)
+        values (#{nameZh}, #{codeNo}, #{pwd}, #{email}, #{phoneNo}, #{fromData}, #{toData}, #{startDate}, #{firstDate},
+                #{otherDate}, #{status}, #{doNum})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into user_bus(name_zh, code_no, pwd, email, phone_no, from_data, to_data, start_date, first_date,
+        other_date, status, do_num)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.nameZh}, #{entity.codeNo}, #{entity.pwd}, #{entity.email}, #{entity.phoneNo}, #{entity.fromData},
+            #{entity.toData}, #{entity.startDate}, #{entity.firstDate}, #{entity.otherDate}, #{entity.status},
+            #{entity.doNum})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into user_bus(name_zh, code_no, pwd, email, phone_no, from_data, to_data, start_date, first_date,
+        other_date, status, do_num)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.nameZh}, #{entity.codeNo}, #{entity.pwd}, #{entity.email}, #{entity.phoneNo}, #{entity.fromData},
+            #{entity.toData}, #{entity.startDate}, #{entity.firstDate}, #{entity.otherDate}, #{entity.status},
+            #{entity.doNum})
+        </foreach>
+        on duplicate key update
+        name_zh = values(name_zh),
+        code_no = values(code_no),
+        pwd = values(pwd),
+        email = values(email),
+        phone_no = values(phone_no),
+        from_data = values(from_data),
+        to_data = values(to_data),
+        start_date = values(start_date),
+        first_date = values(first_date),
+        other_date = values(other_date),
+        status = values(status),
+        do_num = values(do_num)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update user_bus
+        <set>
+            <if test="nameZh != null and nameZh != ''">
+                name_zh = #{nameZh},
+            </if>
+            <if test="codeNo != null and codeNo != ''">
+                code_no = #{codeNo},
+            </if>
+            <if test="pwd != null and pwd != ''">
+                pwd = #{pwd},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="phoneNo != null and phoneNo != ''">
+                phone_no = #{phoneNo},
+            </if>
+            <if test="fromData != null and fromData != ''">
+                from_data = #{fromData},
+            </if>
+            <if test="toData != null and toData != ''">
+                to_data = #{toData},
+            </if>
+            <if test="startDate != null">
+                start_date = #{startDate},
+            </if>
+            <if test="firstDate != null and firstDate != ''">
+                first_date = #{firstDate},
+            </if>
+            <if test="otherDate != null and otherDate != ''">
+                other_date = #{otherDate},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="doNum != null">
+                do_num = #{doNum},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from user_bus
+        where id = #{id}
+    </delete>
+
+</mapper>
+

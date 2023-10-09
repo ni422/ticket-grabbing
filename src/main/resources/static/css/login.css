@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+
+body {
+    /*background-color: black;*/
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-image: url("/pic/主页.jpg");
+    /*background-repeat: no-repeat;*/
+    background-size: 50%;
+    background-repeat: repeat-x;
+
+    background: radial-gradient(
+            circle at 20px 20px,
+            rgba(248, 255, 174, 0.3),
+            transparent 25%
+    ),
+    radial-gradient(
+            circle at 60% 90%,
+            rgba(253, 200, 48, 0.5),
+            transparent 60%
+    ),
+    #2980B9;
+}
+
+
+#header, #footer {
+    display: flex;
+    height: calc(10vh);
+    backdrop-filter: blur(10px);
+    /*box-shadow: 20rpx -20rpx 40rpx rgba(0, 0, 0, 0.2), -20rpx 20rpx 40rpx rgba(255, 255, 255, 0.1);*/
+    background: linear-gradient(to top right, rgba(198, 255, 221, 0.3), rgba(251, 215, 134, 0.3), rgba(247, 121, 125, 0.5));
+    /*transform: rotate(-12deg);*/
+    transform-origin: bottom;
+}
+
+#con {
+
+    justify-content: space-around;
+    display: flex;
+    /*background-color: pink;*/
+}
+
+#left, #right {
+    display: flex;
+    /*flex: 1 1 0;*/
+    width: calc(20vw);
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+    border-width: 0 0 1px 1px;
+    backdrop-filter: blur(10px);
+    /*box-shadow: 20rpx -20rpx 40rpx rgba(0, 0, 0, 0.2), -20rpx 20rpx 40rpx rgba(255, 255, 255, 0.1);*/
+    background: linear-gradient(to top right, rgba(198, 255, 221, 0.3), rgba(251, 215, 134, 0.3), rgba(247, 121, 125, 0.5));
+    /*transform: rotate(-12deg);*/
+    transform-origin: bottom;
+}
+
+#left > div {
+    margin: 10px 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#content {
+    flex: 22 1 0;
+    display: flex;
+    height: calc(80vh);
+}
+
+#info {
+    margin: auto auto;
+}
+
+#info > h1 {
+    color: red;
+}
+
+
+h1 {
+    margin: auto auto;
+}
+
+label {
+    margin-left: 10px;
+    margin-right: 10px;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    padding-top: 11px;
+}
+
+
+input, select {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+button {
+    margin-bottom: 20px;
+    margin-left: 10px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #3e8e41;
+}
+
+form {
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.form-row label {
+    display: block;
+    width: 30%;
+    text-align: right;
+    margin-right: 10px;
+}

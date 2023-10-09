@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>测试主页</title>
+    <link rel="stylesheet" href="css/traindetail.css">
+</head>
+
+<body>
+
+<div id="header">
+    <h1 th:text="${title}"></h1>
+</div>
+<div id="con">
+    <div id="left">
+        <div><h3><a href="#">2：选择列车详情</a></h3></div>
+    </div>
+    <div id="content">
+        <div id="info">
+            <div><h1>列车情况</h1></div>
+        </div>
+    </div>
+    <div id="right">
+        <h1>右边栏</h1>
+    </div>
+</div>
+<div id="footer">
+    <h1>底部导航栏</h1>
+</div>
+</body>
+</html>

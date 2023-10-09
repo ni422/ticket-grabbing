@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+
+<div id="header">
+    <div class="logo">
+        <a href="/index">
+            <img src="https://www.12306.cn/index/images/logo.png" width="100px" height="100px">
+        </a>
+    </div>
+    <h1 th:text="${title}"></h1>
+</div>
+<div id="con">
+    <div id="left">
+        <div><h3><a href="/login">1：完善个人信息并提交</a></h3></div>
+        <div><h3><a href="/traindetail">2：选择列车详情</a></h3></div>
+        <div><h3><a href="#">3：查询当前抢票详情</a></h3></div>
+    </div>
+    <div id="content">
+        <div id="info">
+            <form th:action="@{/getTrainInfoList}" method="post">
+                <label for="from">出发地：</label>
+                <select data-placeholder="请选择" id="from" name="from" style="width: 100%;" required>
+                    <option value="" selected>请选择</option>
+                    <option th:each="code:${codeList}"
+                            th:value="${code.stationCode}"
+                            th:text="${code.stationTitle}"
+                    ></option>
+                </select>
+                <br>
+                <label for="to">目的地：</label>
+                <select data-placeholder="请选择" id="to" name="to" style="width: 100%;" required>
+                    <option value="" selected>请选择</option>
+                    <option th:each="code:${codeList}"
+                            th:value="${code.stationCode}"
+                            th:text="${code.stationTitle}"
+                    ></option>
+                </select>
+                <br>
+                <label for="date">日期：</label>
+                <input type="date" id="date" name="date" required>
+                <br>
+                <button type="submit">查询</button>
+            </form>
+            <div id="infolist">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>车次</th>
+                        <th>出发时间</th>
+                        <th>到达时间</th>
+                        <th>出发站</th>
+                        <th>到达站</th>
+                        <th>起点->终点</th>
+                        <th>历时</th>
+                        <th>价格</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ticket : ${tickets}">
+                        <td th:text="${ticket.trainNumber}"></td>
+                        <td th:text="${ticket.departureTime}"></td>
+                        <td th:text="${ticket.arrivalTime}"></td>
+                        <td th:text="${ticket.departureStation}"></td>
+                        <td th:text="${ticket.arrivalStation}"></td>
+                        <td th:text="${ticket.extreInfo}"></td>
+                        <td th:text="${ticket.duration}"></td>
+                        <td th:text="${ticket.price}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div id="right">
+        <h1>右边栏</h1>
+    </div>
+</div>
+<div id="footer">
+    <h1>底部导航栏</h1>
+</div>
+</body>
+</html>
