@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "thread-pool.file.corePoolSize",
+      "type": "java.lang.String",
+      "description": "Description for thread-pool.file.corePoolSize."
+    },
+    {
+      "name": "thread-pool.common.maximumPoolSize",
+      "type": "java.lang.String",
+      "description": "Description for thread-pool.common.maximumPoolSize."
+    },
+    {
+      "name": "thread-pool.file.queueCapacity",
+      "type": "java.lang.String",
+      "description": "Description for thread-pool.file.queueCapacity."
+    },
+    {
+      "name": "config.baseUrl",
+      "type": "java.lang.String",
+      "description": "Description for config.baseUrl."
+    }
+  ] }

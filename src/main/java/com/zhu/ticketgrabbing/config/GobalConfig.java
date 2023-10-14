@@ -11,6 +11,11 @@ import java.util.concurrent.Executor;
 
 @Configuration
 public class GobalConfig {
+
+
+    /**
+     * 注入rest请求bean
+     */
     @Bean
     RestTemplate restTemplate() {
         return new RestTemplate();

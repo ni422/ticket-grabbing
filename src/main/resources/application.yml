@@ -49,3 +49,14 @@ config:
   proxyHost: "127.0.0.1"
   proxyPort: 8080
 
+thread-pool:
+  file:
+    corePoolSize: 10
+    maximumPoolSize: 30
+    keepAliveTime: 300
+    queueCapacity: 50
+  common:
+    corePoolSize: 10
+    maximumPoolSize: 30
+    keepAliveTime: 300
+    queueCapacity: 50
