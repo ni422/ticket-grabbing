@@ -1,29 +1,30 @@
 package com.zhu.ticketgrabbing.config;
- 
+
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
- 
-import java.nio.charset.Charset;
+
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
- 
-@Configuration
+
+/**
+ * TODO 需重新配置，返回值乱码
+ */
+//@Configuration
 public class JsonConfig {
     /**
+     * @return 返回一个消息转换的bean
      * @Author anson
      * @Description 配置消息转换器
      * @Date: 2019-12-8 11:23:33
      * @version: 1.0
      * new HttpMessageConverters(true, converters);
      * 一定要设为true才能替换否则不会替换
-     * @return 返回一个消息转换的bean
      */
     @Bean
     public HttpMessageConverters fastJsonMessageConverters() {
@@ -44,7 +45,7 @@ public class JsonConfig {
         //在convert中添加配置信息.
         fastConverter.setSupportedMediaTypes(fastMediaTypes);
         fastConverter.setFastJsonConfig(fastJsonConfig);
- 
+
         converters.add(0, fastConverter);
         return new HttpMessageConverters(converters);
     }

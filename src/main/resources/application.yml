@@ -21,6 +21,10 @@ spring:
     port: 465
     protocol: smtps
     username: zxiaoyang777@163.com
+  security:
+    user:
+      name: zhu
+      password: 12345
 
 
 
